@@ -1,0 +1,1588 @@
+<!DOCTYPE html>
+<html lang="en" class="light"> <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KDJ Salon | Luxury Beauty & Wellness Experience</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.0.7/dist/css/splide.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-color: #ff447c;
+            --secondary-color: #a155ff;
+            --accent-color: #ffaa10;
+            --light-bg: #fef6f9; /* Light mode background */
+            --dark-text: #2c2c2c;  /* Light mode text */
+            --light-text: #ffffff; /* Dark mode text OR text on dark backgrounds */
+            --medium-text: #6c6c6c; /* Light mode secondary text */
+            --dark-bg: #121212;     /* Dark mode background */
+            --dark-card: #1e1e1e;   /* Dark mode card/surface */
+            --dark-text-alt: #e0e0e0; /* Dark mode primary text */
+            --dark-medium-text: #a0a0a0; /* Dark mode secondary text */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+            background-color: var(--light-bg);
+            color: var(--dark-text);
+            transition: background-color 0.3s ease, color 0.3s ease; /* Added transitions */
+        }
+
+        body.dark {
+            background-color: var(--dark-bg);
+            color: var(--dark-text-alt);
+        }
+
+        h1, h2, h3, h4, h5 {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Gradient Text Handling */
+        .gradient-text {
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .dark .gradient-text { /* Adjusted dark mode gradient for potentially better visibility */
+             background: linear-gradient(90deg, #ff80ab, #b07cff);
+             -webkit-background-clip: text;
+             -webkit-text-fill-color: transparent;
+             background-clip: text;
+        }
+
+        /* Gradient Background Handling */
+        .gradient-bg {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        }
+        .dark .gradient-bg {
+             background: linear-gradient(135deg, #e63970, #914ce6); /* Slightly darker gradient for dark mode */
+        }
+
+        .accent-gradient {
+            background: linear-gradient(135deg, var(--secondary-color), var(--accent-color));
+        }
+
+        /* Glass Effect */
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(15px) saturate(180%); /* Adjusted blur */
+            -webkit-backdrop-filter: blur(15px) saturate(180%);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+            transition: all 0.4s ease;
+        }
+        .dark .glass-effect {
+            background: rgba(30, 30, 30, 0.75); /* Darker glass */
+            border: 1px solid rgba(255, 255, 255, 0.1);
+             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+        .glass-effect:hover {
+            /* backdrop-filter: blur(10px); */ /* Keep blur consistent on hover or reduce slightly */
+            /* border: 1px solid rgba(255, 255, 255, 0.3); */
+            transform: translateY(-5px) scale(1.02); /* Added scale */
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+         .dark .glass-effect:hover {
+             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+         }
+
+        /* Navigation */
+        .nav-container {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 1000;
+            transition: all 0.5s ease;
+        }
+        .nav-scrolled {
+            background: rgba(254, 246, 249, 0.85); /* Slightly off-white matching --light-bg */
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+        .dark .nav-scrolled {
+            background: rgba(18, 18, 18, 0.85); /* Dark background matching --dark-bg */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .nav-link {
+            position: relative;
+            transition: color 0.3s ease; /* Transition text color */
+            color: var(--dark-text);
+        }
+        .dark .nav-link {
+             color: var(--dark-text-alt);
+        }
+        .nav-link:hover {
+             color: var(--primary-color);
+        }
+        .dark .nav-link:hover {
+             color: #ff80ab; /* Lighter pink for dark mode hover */
+        }
+
+        .nav-link::after { /* Underline effect */
+            content: '';
+            position: absolute;
+            bottom: -4px; left: 0;
+            height: 2px; width: 0;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after { width: 100%; }
+
+        /* Hero */
+        .hero-canvas {
+            position: absolute;
+            top: 0; left: 0;
+            z-index: -1;
+            width: 100%; height: 100vh;
+        }
+        .hero-content {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            z-index: 5;
+        }
+
+        /* Buttons */
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            border: none; /* Ensure no default border */
+            display: inline-block; /* Ensure it behaves like a block for padding/margins */
+            text-align: center;
+        }
+        .dark .btn-primary {
+             background: linear-gradient(135deg, #ff6b8b, #9d50ff);
+        }
+        .btn-primary:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(255, 68, 124, 0.25);
+        }
+        .dark .btn-primary:hover {
+             box-shadow: 0 10px 20px rgba(255, 107, 139, 0.3);
+        }
+
+        .btn-primary::before { /* Shine effect */
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0));
+            transition: left 0.7s ease;
+        }
+        .btn-primary:hover::before { left: 100%; }
+
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            transition: all 0.4s ease;
+             display: inline-block;
+             text-align: center;
+        }
+        .dark .btn-secondary {
+            border-color: #ff6b8b;
+            color: #ff6b8b;
+        }
+        .btn-secondary:hover {
+            background: rgba(255, 68, 124, 0.1);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(255, 68, 124, 0.1);
+        }
+         .dark .btn-secondary:hover {
+            background: rgba(255, 107, 139, 0.1);
+             box-shadow: 0 10px 20px rgba(255, 107, 139, 0.15);
+         }
+
+        /* Cards (General) */
+        .base-card { /* New base class for common card styles */
+            transition: all 0.5s ease;
+            overflow: hidden;
+            border-radius: 16px;
+            background-color: white;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+        }
+        .dark .base-card {
+            background-color: var(--dark-card);
+             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+        .base-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(161, 85, 255, 0.15);
+        }
+        .dark .base-card:hover {
+             box-shadow: 0 20px 40px rgba(161, 85, 255, 0.25);
+        }
+
+        /* Specific Card Types extending base */
+        .service-card {
+             position: relative; /* Needed for pseudo-element */
+             z-index: 1; /* Ensure content is above pseudo-element */
+         }
+        .service-icon-container { transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55); }
+        .service-card:hover .service-icon-container { transform: rotate(15deg) scale(1.15); } /* Adjusted scale */
+        /* Removed radial gradient effect for simplicity, can be added back if desired */
+
+
+        .gallery-card { position: relative; transition: all 0.5s ease; }
+        .gallery-card::before { /* Overlay */
+            content: '';
+            position: absolute; top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+            opacity: 0; transition: opacity 0.5s ease; z-index: 1;
+        }
+        .gallery-card:hover::before { opacity: 1; }
+        .gallery-content { /* Text reveal */
+            position: absolute; bottom: -50px; left: 0;
+            width: 100%; padding: 20px;
+            transition: all 0.5s ease; z-index: 2; opacity: 0; color: white;
+        }
+        .gallery-card:hover .gallery-content { bottom: 0; opacity: 1; }
+        .gallery-placeholder {
+            height: 300px; /* Or use aspect ratio */
+            background: linear-gradient(135deg, #f0f2f5, #e6e9ed); /* Neutral placeholder */
+            display: flex; align-items: center; justify-content: center;
+            border-radius: 16px; color: #a0aec0; /* Tailwind gray-500 */
+        }
+        .dark .gallery-placeholder {
+             background: linear-gradient(135deg, #2d3748, #1a202c); /* Tailwind gray-700, gray-900 */
+             color: #718096; /* Tailwind gray-500 */
+        }
+
+        .testimonial-card { padding: 2rem; text-align: center;} /* Added padding */
+        .dark .testimonial-card { background: var(--dark-card); }
+
+        /* Animations */
+        .floating-animation { animation: floating 6s ease-in-out infinite; }
+        .pulse-animation { animation: pulse 3s ease-in-out infinite; }
+        @keyframes floating {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); } /* Reduced float */
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.03); } /* Reduced pulse */
+        }
+
+        /* Special Section Background */
+        .special-section { position: relative; overflow: hidden; }
+        .special-section::before { /* Subtle gradient overlay */
+            content: ''; position: absolute; top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: linear-gradient(135deg, rgba(255, 68, 124, 0.03), rgba(161, 85, 255, 0.03));
+            z-index: -1;
+        }
+        .dark .special-section::before {
+             background: linear-gradient(135deg, rgba(255, 107, 139, 0.05), rgba(157, 80, 255, 0.05));
+        }
+        /* Removed .special-bg-circle for cleaner look */
+
+        /* Scroll Indicator / Theme Toggle / Scroll-Top */
+         .fixed-fab { /* Base class for fixed action buttons */
+             position: fixed;
+             width: 50px; height: 50px;
+             border-radius: 50%;
+             background: white;
+             display: flex; justify-content: center; align-items: center;
+             z-index: 900;
+             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+             cursor: pointer;
+             transition: all 0.3s ease;
+             color: var(--dark-text); /* Icon color */
+         }
+         .dark .fixed-fab {
+             background: var(--dark-card);
+             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+             color: var(--dark-text-alt);
+         }
+         .fixed-fab:hover {
+             transform: translateY(-5px) scale(1.1); /* Added scale */
+             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+         }
+          .dark .fixed-fab:hover {
+              box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+          }
+
+         .theme-switch { bottom: 30px; left: 30px; }
+         .scroll-indicator { bottom: 30px; right: 30px; } /* Renamed to scroll-to-top */
+
+        /* Progress Bar */
+        .progress-bar {
+            position: fixed; top: 0; left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            z-index: 2000;
+            width: 0%;
+            transition: width 0.1s linear; /* Smoother width transition */
+        }
+        .dark .progress-bar {
+            background: linear-gradient(90deg, #ff6b8b, #9d50ff);
+        }
+
+        /* Forms */
+        .form-input, .form-select, .form-textarea { /* Base input class */
+            transition: all 0.3s ease;
+            border: 1px solid #d1d5db; /* Tailwind gray-300 */
+            background: #f9fafb; /* Tailwind gray-50 */
+            border-radius: 0.5rem; /* Tailwind rounded-lg */
+            padding: 0.75rem 1rem; /* Tailwind px-4 py-3 */
+            width: 100%;
+            color: var(--dark-text);
+        }
+        .dark .form-input, .dark .form-select, .dark .form-textarea {
+            background: #374151; /* Tailwind gray-700 */
+            color: var(--dark-text-alt);
+            border-color: #4b5563; /* Tailwind gray-600 */
+        }
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(255, 68, 124, 0.15);
+            outline: none; /* Remove default outline */
+        }
+        .dark .form-input:focus, .dark .form-select:focus, .dark .form-textarea:focus {
+            border-color: #ff6b8b;
+            box-shadow: 0 0 0 3px rgba(255, 107, 139, 0.2);
+        }
+
+        /* Pricing Card */
+        .pricing-card { /* Extends base-card */ }
+        .pricing-card.featured {
+             position: relative;
+             border: 2px solid var(--primary-color);
+        }
+         .dark .pricing-card.featured {
+             border-color: #ff6b8b;
+         }
+
+        .featured-tag { /* Simple tag */
+             position: absolute;
+             top: 1rem;
+             right: 1rem;
+             background-color: var(--accent-color);
+             color: white;
+             padding: 0.25rem 0.75rem;
+             border-radius: 9999px;
+             font-size: 0.75rem;
+             font-weight: 600;
+        }
+
+        /* Custom Cursor (Optional) */
+        /* Styles for .cursor, .cursor-follower, .cursor-grow from previous code */
+        /* Note: Custom cursors can sometimes impact performance and accessibility */
+
+        /* Loader */
+        .loader {
+            position: fixed; top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: var(--light-bg); /* Match body background */
+            display: flex; justify-content: center; align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease, visibility 0.5s ease; /* Fade out transition */
+            opacity: 1;
+            visibility: visible;
+        }
+         .loader.hidden {
+             opacity: 0;
+             visibility: hidden;
+         }
+        .dark .loader { background: var(--dark-bg); }
+        .loader-content { text-align: center; }
+        .loader-logo { /* Example: Spin the logo */
+            font-size: 3rem;
+            font-family: 'Playfair Display', serif;
+             animation: spin 2s linear infinite;
+        }
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        /* Removed progress bar from loader for simpler animation */
+
+
+        /* Mobile Menu */
+        .mobile-menu {
+            position: fixed; top: 0; right: -100%;
+            width: 80%; max-width: 320px; /* Slightly smaller */
+            height: 100vh;
+            background: white;
+            z-index: 2000;
+            transition: right 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+            box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1);
+            display: flex; flex-direction: column;
+            padding-top: 4rem; /* Space for close button */
+        }
+        .dark .mobile-menu {
+            background: var(--dark-card);
+             box-shadow: -10px 0 30px rgba(0, 0, 0, 0.2);
+        }
+        .mobile-menu.active { right: 0; }
+        .menu-overlay {
+            position: fixed; top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.6); /* Darker overlay */
+            z-index: 1999;
+            opacity: 0; visibility: hidden;
+            transition: all 0.5s ease;
+        }
+        .menu-overlay.active { opacity: 1; visibility: visible; }
+        .menu-close {
+            position: absolute; top: 20px; right: 20px;
+            cursor: pointer; transition: all 0.3s ease;
+             font-size: 1.5rem; /* Larger close icon */
+             color: var(--dark-text);
+        }
+         .dark .menu-close { color: var(--dark-text-alt); }
+        .menu-close:hover { transform: rotate(90deg) scale(1.1); color: var(--primary-color); }
+         .dark .menu-close:hover { color: #ff6b8b; }
+
+        .mobile-nav-link {
+            display: block; padding: 1rem 1.5rem; /* Adjusted padding */
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+            font-weight: 500; /* Slightly bolder */
+             color: var(--dark-text);
+        }
+         .dark .mobile-nav-link { color: var(--dark-text-alt); }
+
+        .mobile-nav-link:hover, .mobile-nav-link.active {
+            background: rgba(255, 68, 124, 0.05);
+            color: var(--primary-color);
+            border-left: 4px solid var(--primary-color);
+        }
+        .dark .mobile-nav-link:hover, .dark .mobile-nav-link.active {
+            background: rgba(255, 107, 139, 0.1);
+            color: #ff6b8b;
+            border-left: 4px solid #ff6b8b;
+        }
+
+        /* Team Section Specifics */
+        .team-social {
+            position: absolute; bottom: -60px; /* Further hidden */ left: 0;
+            width: 100%; background: rgba(255, 255, 255, 0.95);
+            padding: 10px 0; /* Reduced padding */
+            transition: all 0.5s ease; opacity: 0;
+            border-top: 1px solid #eee;
+        }
+        .dark .team-social {
+             background: rgba(30, 30, 30, 0.95);
+             border-top-color: #3a3a3a;
+        }
+        .team-card:hover .team-social { bottom: 0; opacity: 1; }
+        .team-placeholder {
+            height: 250px; /* Adjusted size */
+            background: linear-gradient(135deg, #f0f2f5, #e6e9ed);
+            display: flex; align-items: center; justify-content: center;
+            /* No border-radius needed if image covers it */
+             color: #a0aec0;
+        }
+        .dark .team-placeholder {
+             background: linear-gradient(135deg, #2d3748, #1a202c);
+             color: #718096;
+        }
+
+        /* Reveal Animations */
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+             will-change: opacity, transform; /* Performance hint */
+        }
+        .reveal-on-scroll.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Wave Divider */
+        .wave-divider {
+            position: absolute; bottom: -1px; /* Ensure overlap */ left: 0;
+            width: 100%; overflow: hidden; line-height: 0;
+        }
+        .wave-divider svg {
+            position: relative; display: block;
+            width: calc(100% + 1.3px); height: 80px; /* Adjust height as needed */
+        }
+        .wave-divider .shape-fill { fill: var(--light-bg); transition: fill 0.3s ease; } /* Match background */
+        .dark .wave-divider .shape-fill { fill: var(--dark-bg); } /* Match dark background */
+
+
+        /* FAQ Accordion */
+        .faq-item { border-bottom: 1px solid #e0e0e0; }
+        .dark .faq-item { border-bottom-color: #3a3a3a; }
+        .faq-question { cursor: pointer; padding: 1.25rem 0; transition: color 0.3s ease; }
+        .faq-question:hover { color: var(--primary-color); }
+        .dark .faq-question:hover { color: #ff6b8b; }
+        .faq-icon { transition: transform 0.3s ease; color: var(--primary-color); }
+         .dark .faq-icon { color: #ff6b8b; }
+        .faq-question.active .faq-icon { transform: rotate(135deg); } /* Changed rotation */
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out, padding-bottom 0.5s ease-out; /* Added padding transition */
+            padding-bottom: 0;
+             color: var(--medium-text);
+        }
+         .dark .faq-answer { color: var(--dark-medium-text); }
+        .faq-question.active + .faq-answer {
+            max-height: 500px; /* Adjust as needed */
+            padding-bottom: 1.5rem; /* Add space when open */
+        }
+
+        /* Appointment Steps */
+        .appointment-steps { counter-reset: step; }
+        .step-item { position: relative; padding-left: 60px; margin-bottom: 1.5rem; }
+        .step-item::before {
+            counter-increment: step; content: counter(step);
+            position: absolute; left: 0; top: 0;
+            width: 40px; height: 40px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            color: white; font-weight: bold;
+            box-shadow: 0 4px 10px rgba(161, 85, 255, 0.3);
+        }
+        .dark .step-item::before {
+             background: linear-gradient(135deg, #ff6b8b, #9d50ff);
+             box-shadow: 0 4px 10px rgba(157, 80, 255, 0.4);
+        }
+
+        /* Splide Customization (Example) */
+        .splide__arrow { background: rgba(0, 0, 0, 0.1); }
+        .splide__arrow svg { fill: var(--dark-text); }
+        .dark .splide__arrow { background: rgba(255, 255, 255, 0.1); }
+        .dark .splide__arrow svg { fill: var(--dark-text-alt); }
+        .splide__pagination__page { background: #ccc; }
+        .dark .splide__pagination__page { background: #555; }
+        .splide__pagination__page.is-active { background: var(--primary-color); transform: scale(1.4); }
+        .dark .splide__pagination__page.is-active { background: #ff6b8b; }
+
+
+        /* Add to Cart Button (Corrected) */
+        .add-to-cart { position: relative; overflow: hidden; }
+        .add-to-cart::before {
+            content: '';
+            position: absolute; top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            transition: left 0.7s ease;
+            z-index: 1; /* Ensure shine is above button content */
+        }
+        .add-to-cart:hover::before { left: 100%; }
+         .add-to-cart span, .add-to-cart i { position: relative; z-index: 2; } /* Ensure text/icon is above shine */
+
+    </style>
+</head>
+<body class="antialiased">
+
+    <div id="loader" class="loader">
+        <div class="loader-content">
+            <div class="loader-logo gradient-text">KDJ</div>
+            <p class="mt-2 text-sm font-medium text-mediumtext dark:text-dark-medium-text">Loading Your Experience...</p>
+        </div>
+    </div>
+
+    <nav id="navbar" class="nav-container py-4"> <div class="container mx-auto px-6 flex justify-between items-center">
+            <a href="#hero" class="logo text-3xl font-bold font-serif gradient-text">KDJ</a>
+
+            <div class="hidden md:flex space-x-6 items-center">
+                <a href="#services" class="nav-link">Services</a>
+                <a href="#gallery" class="nav-link">Gallery</a>
+                <a href="#team" class="nav-link">Team</a>
+                <a href="#store" class="nav-link">Store</a>
+                <a href="#memberships" class="nav-link">Memberships</a>
+                <a href="#testimonials" class="nav-link">Reviews</a>
+                <a href="#blog" class="nav-link">Blog</a>
+                <a href="#contact" class="nav-link">Contact</a>
+                <a href="#booking" class="btn-primary px-6 py-2 rounded-full text-sm font-semibold ml-4">Book Now</a>
+            </div>
+
+            <div class="md:hidden flex items-center">
+                 <button id="theme-toggle-mobile" class="text-xl mr-4 focus:outline-none text-darktext dark:text-dark-text-alt">
+                     <i class="fas fa-moon"></i> </button>
+                 <button id="mobile-menu-button" class="focus:outline-none">
+                    <div class="hamburger">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <div id="mobile-menu" class="mobile-menu">
+        <button id="mobile-menu-close" class="menu-close">
+            <i class="fas fa-times"></i>
+        </button>
+        <div class="flex flex-col h-full justify-center space-y-4">
+            <a href="#services" class="mobile-nav-link text-lg">Services</a>
+            <a href="#gallery" class="mobile-nav-link text-lg">Gallery</a>
+            <a href="#team" class="mobile-nav-link text-lg">Team</a>
+            <a href="#store" class="mobile-nav-link text-lg">Store</a>
+            <a href="#memberships" class="mobile-nav-link text-lg">Memberships</a>
+            <a href="#testimonials" class="mobile-nav-link text-lg">Reviews</a>
+            <a href="#blog" class="mobile-nav-link text-lg">Blog</a>
+            <a href="#contact" class="mobile-nav-link text-lg">Contact</a>
+            <a href="#booking" class="block mx-6 mt-6 text-center btn-primary px-6 py-3 rounded-full text-base font-semibold">Book Now</a>
+        </div>
+    </div>
+    <div id="menu-overlay" class="menu-overlay"></div>
+
+    <section id="hero" class="relative h-screen flex items-center justify-center text-center text-white overflow-hidden">
+        <div id="hero-canvas" class="hero-canvas">
+             </div>
+        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent opacity-70 dark:opacity-80 z-0"></div> <div class="hero-content px-4">
+            <div class="max-w-4xl mx-auto">
+                <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold font-serif mb-6 leading-tight drop-shadow-lg">Elegance & Artistry Combined</h1>
+                <p class="text-lg md:text-xl lg:text-2xl mb-10 max-w-3xl mx-auto font-light drop-shadow-md">Discover your ultimate self at KDJ Salon, where luxury meets personalized beauty and wellness.</p>
+                <a href="#booking" class="btn-primary px-10 py-4 rounded-full text-lg font-semibold hover:shadow-xl transition duration-300">Book Your Experience</a>
+            </div>
+        </div>
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 z-10 animate-bounce">
+            <a href="#services" aria-label="Scroll down">
+                <i class="fas fa-chevron-down text-white text-3xl opacity-70 hover:opacity-100 transition-opacity duration-300"></i>
+            </a>
+        </div>
+    </section>
+
+    <section id="services" class="py-24 md:py-32 bg-lightbg dark:bg-dark-bg">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-4xl md:text-5xl font-serif font-semibold mb-5 reveal-on-scroll dark:text-dark-text-alt">Our Signature Services</h2>
+            <p class="text-lg text-mediumtext dark:text-dark-medium-text mb-16 max-w-2xl mx-auto reveal-on-scroll">Crafted with expertise, personalized for your unique style.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                <div class="base-card service-card p-8 reveal-on-scroll">
+                    <div class="service-icon-container text-5xl text-primary mb-6">
+                        <i class="fas fa-cut"></i>
+                    </div>
+                    <h3 class="text-2xl font-serif font-semibold mb-3 dark:text-dark-text-alt">Precision Haircuts</h3>
+                    <p class="text-mediumtext dark:text-dark-medium-text">Modern styles, classic techniques. Perfect cuts for every individual.</p>
+                </div>
+                <div class="base-card service-card p-8 reveal-on-scroll" style="transition-delay: 0.1s;">
+                    <div class="service-icon-container text-5xl text-secondary mb-6">
+                        <i class="fas fa-paint-brush"></i>
+                    </div>
+                    <h3 class="text-2xl font-serif font-semibold mb-3 dark:text-dark-text-alt">Creative Coloring</h3>
+                    <p class="text-mediumtext dark:text-dark-medium-text">From balayage to bold hues, discover your perfect shade with expert colorists.</p>
+                </div>
+                <div class="base-card service-card p-8 reveal-on-scroll" style="transition-delay: 0.2s;">
+                    <div class="service-icon-container text-5xl text-accent mb-6">
+                        <i class="fas fa-spa"></i>
+                    </div>
+                    <h3 class="text-2xl font-serif font-semibold mb-3 dark:text-dark-text-alt">Revitalizing Facials</h3>
+                    <p class="text-mediumtext dark:text-dark-medium-text">Glow from within with our custom skincare treatments using premium products.</p>
+                </div>
+                 <div class="base-card service-card p-8 reveal-on-scroll" style="transition-delay: 0.3s;">
+                    <div class="service-icon-container text-5xl gradient-text mb-6">
+                        <i class="fas fa-hand-sparkles"></i>
+                    </div>
+                    <h3 class="text-2xl font-serif font-semibold mb-3 dark:text-dark-text-alt">Luxury Manicures</h3>
+                    <p class="text-mediumtext dark:text-dark-medium-text">Pamper your hands with meticulous nail care and stunning polish options.</p>
+                </div>
+                 <div class="base-card service-card p-8 reveal-on-scroll" style="transition-delay: 0.4s;">
+                    <div class="service-icon-container text-5xl text-primary mb-6">
+                         <i class="fas fa-magic"></i>
+                    </div>
+                    <h3 class="text-2xl font-serif font-semibold mb-3 dark:text-dark-text-alt">Event Styling</h3>
+                    <p class="text-mediumtext dark:text-dark-medium-text">Perfect updos and styles for weddings, galas, or any special occasion.</p>
+                </div>
+                 <div class="base-card service-card p-8 reveal-on-scroll" style="transition-delay: 0.5s;">
+                    <div class="service-icon-container text-5xl text-secondary mb-6">
+                         <i class="fas fa-moon"></i>
+                    </div>
+                    <h3 class="text-2xl font-serif font-semibold mb-3 dark:text-dark-text-alt">Wellness Massage</h3>
+                    <p class="text-mediumtext dark:text-dark-medium-text">Relax and rejuvenate body and mind with our therapeutic massage techniques.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+     <section class="py-20 md:py-28 gradient-bg text-white text-center relative">
+        <div class="container mx-auto px-6 relative z-10 reveal-on-scroll">
+             <h2 class="text-3xl md:text-4xl font-serif font-semibold mb-4">Ready for Your Transformation?</h2>
+             <p class="text-lg mb-8 max-w-xl mx-auto font-light">Let our expert team craft your perfect look. Book your appointment today!</p>
+             <a href="#booking" class="bg-white text-primary font-semibold px-8 py-3 rounded-full text-lg hover:bg-opacity-90 transform hover:scale-105 transition duration-300 inline-block">Schedule Now</a>
+        </div>
+         <div class="wave-divider">
+             <svg viewBox="0 0 1200 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                 <path d="M321.39 56.44c58-10.79 114.16-30.13 172-41.86 82.39-16.72 168.19-17.73 250.45-.39C823.78 31.7 906.67 72 985.66 92.83c70.05 18.48 146.53 26.09 214.34 3V0H0v56.34c86.13-5.33 174.3-10.74 261.39-16.59C281.84 37.94 300.88 40.06 321.39 56.44z" class="shape-fill"></path>
+             </svg>
+         </div>
+     </section>
+
+
+    <section id="gallery" class="py-24 md:py-32 bg-lightbg dark:bg-dark-bg">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-4xl md:text-5xl font-serif font-semibold mb-5 reveal-on-scroll dark:text-dark-text-alt">Visual Diary</h2>
+            <p class="text-lg text-mediumtext dark:text-dark-medium-text mb-16 max-w-2xl mx-auto reveal-on-scroll">A glimpse into the transformations and artistry at KDJ.</p>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+                <div class="gallery-card aspect-square group reveal-on-scroll">
+                    <div class="gallery-placeholder absolute inset-0"><i class="fas fa-image text-4xl"></i></div>
+                    <div class="gallery-content">
+                        <h4 class="font-semibold text-lg mb-1">Balayage Beauty</h4>
+                        <p class="text-sm font-light">Natural sun-kissed highlights.</p>
+                    </div>
+                </div>
+                 <div class="gallery-card aspect-square group reveal-on-scroll" style="transition-delay: 0.05s;">
+                     <div class="gallery-placeholder absolute inset-0"><i class="fas fa-image text-4xl"></i></div>
+                     <div class="gallery-content">
+                        <h4 class="font-semibold text-lg mb-1">Radiant Skin</h4>
+                        <p class="text-sm font-light">Post-facial glow.</p>
+                    </div>
+                </div>
+                 <div class="gallery-card aspect-square group reveal-on-scroll" style="transition-delay: 0.1s;">
+                     <div class="gallery-placeholder absolute inset-0"><i class="fas fa-image text-4xl"></i></div>
+                     <div class="gallery-content">
+                         <h4 class="font-semibold text-lg mb-1">Sharp Bob</h4>
+                         <p class="text-sm font-light">Precision cutting.</p>
+                     </div>
+                 </div>
+                 <div class="gallery-card aspect-square group reveal-on-scroll" style="transition-delay: 0.15s;">
+                     <div class="gallery-placeholder absolute inset-0"><i class="fas fa-image text-4xl"></i></div>
+                     <div class="gallery-content">
+                         <h4 class="font-semibold text-lg mb-1">Elegant Updo</h4>
+                         <p class="text-sm font-light">Perfect for events.</p>
+                     </div>
+                 </div>
+                 <div class="gallery-card aspect-square group reveal-on-scroll" style="transition-delay: 0.2s;">
+                     <div class="gallery-placeholder absolute inset-0"><i class="fas fa-image text-4xl"></i></div>
+                     <div class="gallery-content">
+                         <h4 class="font-semibold text-lg mb-1">Vivid Color</h4>
+                         <p class="text-sm font-light">Bold and beautiful.</p>
+                     </div>
+                 </div>
+                 <div class="gallery-card aspect-square group reveal-on-scroll" style="transition-delay: 0.25s;">
+                     <div class="gallery-placeholder absolute inset-0"><i class="fas fa-image text-4xl"></i></div>
+                     <div class="gallery-content">
+                         <h4 class="font-semibold text-lg mb-1">Nail Artistry</h4>
+                         <p class="text-sm font-light">Intricate designs.</p>
+                     </div>
+                 </div>
+                 <div class="gallery-card aspect-square group reveal-on-scroll" style="transition-delay: 0.3s;">
+                    <div class="gallery-placeholder absolute inset-0"><i class="fas fa-image text-4xl"></i></div>
+                     <div class="gallery-content">
+                         <h4 class="font-semibold text-lg mb-1">Men's Grooming</h4>
+                         <p class="text-sm font-light">Sharp and styled.</p>
+                     </div>
+                 </div>
+                 <div class="gallery-card aspect-square group reveal-on-scroll" style="transition-delay: 0.35s;">
+                     <div class="gallery-placeholder absolute inset-0"><i class="fas fa-image text-4xl"></i></div>
+                     <div class="gallery-content">
+                         <h4 class="font-semibold text-lg mb-1">Relaxing Ambiance</h4>
+                         <p class="text-sm font-light">Our calming space.</p>
+                     </div>
+                 </div>
+            </div>
+        </div>
+    </section>
+
+     <section id="team" class="py-24 md:py-32 bg-gradient-to-br from-pink-50 to-purple-50 dark:from-gray-900 dark:to-black special-section">
+        <div class="container mx-auto px-6 text-center relative z-10">
+            <h2 class="text-4xl md:text-5xl font-serif font-semibold mb-5 reveal-on-scroll dark:text-dark-text-alt">Meet the Artists</h2>
+            <p class="text-lg text-mediumtext dark:text-dark-medium-text mb-16 max-w-2xl mx-auto reveal-on-scroll">Passionate professionals dedicated to perfecting your beauty.</p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+                <div class="base-card team-card text-center group reveal-on-scroll rounded-lg pb-4"> <div class="relative mb-4">
+                         <div class="team-placeholder flex items-center justify-center overflow-hidden rounded-t-lg"> <i class="fas fa-user text-6xl text-gray-400 dark:text-gray-600"></i>
+                         </div>
+                    </div>
+                    <h3 class="text-xl font-serif font-semibold mb-1 dark:text-dark-text-alt">Alex Jordan</h3>
+                    <p class="text-primary dark:text-pink-400 font-medium text-sm mb-2">Lead Stylist & Color Director</p>
+                    <p class="text-mediumtext dark:text-dark-medium-text text-sm px-4 mb-4">With 10+ years, Alex excels in transformative cuts and bespoke color.</p>
+                     <div class="team-social flex justify-center space-x-4 py-2">
+                         <a href="#" aria-label="Alex Instagram" class="text-gray-500 hover:text-primary dark:text-gray-400 dark:hover:text-pink-400 transition duration-300"><i class="fab fa-instagram text-lg"></i></a>
+                         <a href="#" aria-label="Alex Facebook" class="text-gray-500 hover:text-primary dark:text-gray-400 dark:hover:text-pink-400 transition duration-300"><i class="fab fa-facebook-f text-lg"></i></a>
+                     </div>
+                </div>
+                <div class="base-card team-card text-center group reveal-on-scroll rounded-lg pb-4" style="transition-delay: 0.1s;">
+                     <div class="relative mb-4">
+                         <div class="team-placeholder flex items-center justify-center overflow-hidden rounded-t-lg">
+                             <i class="fas fa-user text-6xl text-gray-400 dark:text-gray-600"></i>
+                         </div>
+                     </div>
+                     <h3 class="text-xl font-serif font-semibold mb-1 dark:text-dark-text-alt">Jamie Lee</h3>
+                     <p class="text-secondary dark:text-purple-400 font-medium text-sm mb-2">Senior Skincare Expert</p>
+                    <p class="text-mediumtext dark:text-dark-medium-text text-sm px-4 mb-4">Jamie crafts personalized facial treatments for radiant, healthy skin results.</p>
+                      <div class="team-social flex justify-center space-x-4 py-2">
+                         <a href="#" aria-label="Jamie LinkedIn" class="text-gray-500 hover:text-secondary dark:text-gray-400 dark:hover:text-purple-400 transition duration-300"><i class="fab fa-linkedin-in text-lg"></i></a>
+                         <a href="#" aria-label="Jamie Email" class="text-gray-500 hover:text-secondary dark:text-gray-400 dark:hover:text-purple-400 transition duration-300"><i class="fas fa-envelope text-lg"></i></a>
+                     </div>
+                 </div>
+                  <div class="base-card team-card text-center group reveal-on-scroll rounded-lg pb-4" style="transition-delay: 0.2s;">
+                     <div class="relative mb-4">
+                         <div class="team-placeholder flex items-center justify-center overflow-hidden rounded-t-lg">
+                             <i class="fas fa-user text-6xl text-gray-400 dark:text-gray-600"></i>
+                         </div>
+                     </div>
+                     <h3 class="text-xl font-serif font-semibold mb-1 dark:text-dark-text-alt">Casey Morgan</h3>
+                     <p class="text-accent dark:text-yellow-400 font-medium text-sm mb-2">Master Nail Artist</p>
+                     <p class="text-mediumtext dark:text-dark-medium-text text-sm px-4 mb-4">Casey creates stunning nail designs, from elegant classics to modern art.</p>
+                       <div class="team-social flex justify-center space-x-4 py-2">
+                         <a href="#" aria-label="Casey Pinterest" class="text-gray-500 hover:text-accent dark:text-gray-400 dark:hover:text-yellow-400 transition duration-300"><i class="fab fa-pinterest-p text-lg"></i></a>
+                     </div>
+                 </div>
+                  <div class="base-card team-card text-center group reveal-on-scroll rounded-lg pb-4" style="transition-delay: 0.3s;">
+                     <div class="relative mb-4">
+                         <div class="team-placeholder flex items-center justify-center overflow-hidden rounded-t-lg">
+                            <i class="fas fa-user text-6xl text-gray-400 dark:text-gray-600"></i>
+                         </div>
+                     </div>
+                     <h3 class="text-xl font-serif font-semibold mb-1 dark:text-dark-text-alt">Sam Taylor</h3>
+                     <p class="text-primary dark:text-pink-400 font-medium text-sm mb-2">Lead Massage Therapist</p>
+                     <p class="text-mediumtext dark:text-dark-medium-text text-sm px-4 mb-4">Sam provides relaxing and therapeutic massages to melt stress away.</p>
+                      <div class="team-social flex justify-center space-x-4 py-2">
+                         <a href="#" aria-label="Sam Phone" class="text-gray-500 hover:text-primary dark:text-gray-400 dark:hover:text-pink-400 transition duration-300"><i class="fas fa-phone text-lg"></i></a>
+                     </div>
+                 </div>
+            </div>
+        </div>
+    </section>
+
+     <section id="testimonials" class="py-24 md:py-32 bg-lightbg dark:bg-dark-bg">
+         <div class="container mx-auto px-6 text-center">
+             <h2 class="text-4xl md:text-5xl font-serif font-semibold mb-5 reveal-on-scroll dark:text-dark-text-alt">What Our Clients Say</h2>
+             <p class="text-lg text-mediumtext dark:text-dark-medium-text mb-16 max-w-2xl mx-auto reveal-on-scroll">Real words from our valued guests.</p>
+
+             <div id="testimonial-slider" class="splide reveal-on-scroll" aria-label="Client Testimonials">
+                 <div class="splide__track">
+                     <ul class="splide__list">
+                         <li class="splide__slide px-4">
+                             <div class="base-card testimonial-card">
+                                 <div class="text-yellow-400 mb-4 text-lg">
+                                     <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                 </div>
+                                 <p class="text-mediumtext dark:text-dark-medium-text italic mb-6 leading-relaxed">"Absolutely loved my experience! Alex is a true artist. My color has never looked better. The salon has such a welcoming and luxurious vibe."</p>
+                                 <h4 class="font-semibold dark:text-dark-text-alt">Jessica M.</h4>
+                                 <p class="text-sm text-gray-500 dark:text-gray-400">Hair Coloring Client</p>
+                             </div>
+                         </li>
+                         <li class="splide__slide px-4">
+                             <div class="base-card testimonial-card">
+                                 <div class="text-yellow-400 mb-4 text-lg">
+                                      <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                 </div>
+                                 <p class="text-mediumtext dark:text-dark-medium-text italic mb-6 leading-relaxed">"Jamie's facials are pure magic! My skin feels incredibly refreshed and clear. Highly recommend the signature treatment."</p>
+                                 <h4 class="font-semibold dark:text-dark-text-alt">David R.</h4>
+                                  <p class="text-sm text-gray-500 dark:text-gray-400">Skincare Client</p>
+                            </div>
+                         </li>
+                          <li class="splide__slide px-4">
+                             <div class="base-card testimonial-card">
+                                 <div class="text-yellow-400 mb-4 text-lg">
+                                     <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                                 </div>
+                                 <p class="text-mediumtext dark:text-dark-medium-text italic mb-6 leading-relaxed">"Casey did an amazing job on my nails for a wedding. So intricate and they lasted forever! The attention to detail is fantastic."</p>
+                                 <h4 class="font-semibold dark:text-dark-text-alt">Sarah L.</h4>
+                                  <p class="text-sm text-gray-500 dark:text-gray-400">Nail Art Client</p>
+                            </div>
+                         </li>
+                         <li class="splide__slide px-4">
+                             <div class="base-card testimonial-card">
+                                 <div class="text-yellow-400 mb-4 text-lg">
+                                      <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                 </div>
+                                 <p class="text-mediumtext dark:text-dark-medium-text italic mb-6 leading-relaxed">"The most relaxing massage I've ever had. Sam really knows how to target tension. Left feeling completely renewed."</p>
+                                 <h4 class="font-semibold dark:text-dark-text-alt">Michael B.</h4>
+                                 <p class="text-sm text-gray-500 dark:text-gray-400">Massage Client</p>
+                             </div>
+                         </li>
+                         </ul>
+                 </div>
+                 </div>
+        </div>
+    </section>
+
+    <section id="store" class="py-24 md:py-32 bg-gradient-to-br from-purple-50 to-pink-50 dark:from-gray-900 dark:to-black special-section">
+        <div class="container mx-auto px-6 text-center relative z-10">
+            <h2 class="text-4xl md:text-5xl font-serif font-semibold mb-5 reveal-on-scroll dark:text-dark-text-alt">Curated Beauty Boutique</h2>
+            <p class="text-lg text-mediumtext dark:text-dark-medium-text mb-16 max-w-2xl mx-auto reveal-on-scroll">Bring the KDJ luxury home with our handpicked professional products.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="base-card product-card text-left group reveal-on-scroll">
+                    <div class="h-60 product-placeholder flex items-center justify-center relative rounded-t-lg"> <i class="fas fa-box-open text-6xl text-gray-400 dark:text-gray-600"></i>
+                         <span class="absolute top-3 right-3 bg-accent text-white text-xs font-semibold px-3 py-1 rounded-full">New</span>
+                    </div>
+                    <div class="p-6 relative"> <p class="text-sm text-mediumtext dark:text-dark-medium-text mb-1">Haircare</p>
+                        <h3 class="text-lg font-serif font-semibold mb-2 h-16 dark:text-dark-text-alt">Hydrating Argan Oil Shampoo & Conditioner Set</h3> <p class="text-xl font-semibold gradient-text mb-4">$52.00</p>
+                        <div class="product-actions absolute bottom-6 left-6 right-6"> <button class="add-to-cart btn-primary w-full py-2 px-4 rounded-full text-sm font-semibold">
+                                <span>Add to Cart</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="base-card product-card text-left group reveal-on-scroll" style="transition-delay: 0.1s;">
+                     <div class="h-60 product-placeholder flex items-center justify-center relative rounded-t-lg">
+                         <i class="fas fa-pump-soap text-6xl text-gray-400 dark:text-gray-600"></i>
+                    </div>
+                    <div class="p-6 relative">
+                        <p class="text-sm text-mediumtext dark:text-dark-medium-text mb-1">Skincare</p>
+                        <h3 class="text-lg font-serif font-semibold mb-2 h-16 dark:text-dark-text-alt">Advanced Vitamin C Brightening Serum</h3>
+                        <p class="text-xl font-semibold gradient-text mb-4">$65.00</p>
+                         <div class="product-actions absolute bottom-6 left-6 right-6">
+                             <button class="add-to-cart btn-primary w-full py-2 px-4 rounded-full text-sm font-semibold">
+                                 <span>Add to Cart</span>
+                             </button>
+                         </div>
+                    </div>
+                 </div>
+                  <div class="base-card product-card text-left group reveal-on-scroll" style="transition-delay: 0.2s;">
+                     <div class="h-60 product-placeholder flex items-center justify-center relative rounded-t-lg">
+                         <i class="fas fa-gift text-6xl text-gray-400 dark:text-gray-600"></i>
+                         <span class="absolute top-3 right-3 bg-primary text-white text-xs font-semibold px-3 py-1 rounded-full dark:bg-pink-600">Gift Set</span>
+                    </div>
+                    <div class="p-6 relative">
+                        <p class="text-sm text-mediumtext dark:text-dark-medium-text mb-1">Gift Sets</p>
+                        <h3 class="text-lg font-serif font-semibold mb-2 h-16 dark:text-dark-text-alt">Ultimate Relaxation Spa Kit (Limited Edition)</h3>
+                        <p class="text-xl font-semibold gradient-text mb-4">$95.00</p>
+                         <div class="product-actions absolute bottom-6 left-6 right-6">
+                             <button class="add-to-cart btn-primary w-full py-2 px-4 rounded-full text-sm font-semibold">
+                                 <span>Add to Cart</span>
+                            </button>
+                         </div>
+                    </div>
+                 </div>
+                  <div class="base-card product-card text-left group reveal-on-scroll" style="transition-delay: 0.3s;">
+                     <div class="h-60 product-placeholder flex items-center justify-center relative rounded-t-lg">
+                         <i class="fas fa-brush text-6xl text-gray-400 dark:text-gray-600"></i>
+                    </div>
+                    <div class="p-6 relative">
+                        <p class="text-sm text-mediumtext dark:text-dark-medium-text mb-1">Tools</p>
+                        <h3 class="text-lg font-serif font-semibold mb-2 h-16 dark:text-dark-text-alt">Professional Ceramic Smoothing Brush</h3>
+                        <p class="text-xl font-semibold gradient-text mb-4">$42.00</p>
+                         <div class="product-actions absolute bottom-6 left-6 right-6">
+                            <button class="add-to-cart btn-primary w-full py-2 px-4 rounded-full text-sm font-semibold">
+                                 <span>Add to Cart</span>
+                             </button>
+                         </div>
+                    </div>
+                 </div>
+            </div>
+             <div class="text-center mt-16 reveal-on-scroll">
+                 <a href="#" class="btn-primary px-8 py-3 rounded-full text-lg font-semibold hover:shadow-xl transition duration-300">Shop All Products</a>
+            </div>
+        </div>
+    </section>
+
+     <section id="memberships" class="py-24 md:py-32 bg-lightbg dark:bg-dark-bg">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-4xl md:text-5xl font-serif font-semibold mb-5 reveal-on-scroll dark:text-dark-text-alt">Exclusive Memberships</h2>
+            <p class="text-lg text-mediumtext dark:text-dark-medium-text mb-16 max-w-2xl mx-auto reveal-on-scroll">Unlock premium benefits and consistent beauty maintenance.</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10 items-stretch"> <div class="base-card pricing-card p-8 flex flex-col reveal-on-scroll"> <h3 class="text-2xl font-serif font-semibold mb-2 dark:text-dark-text-alt">Radiance</h3>
+                    <p class="text-mediumtext dark:text-dark-medium-text mb-6">Essential Monthly Care</p>
+                    <p class="text-4xl font-bold mb-6 dark:text-dark-text-alt">$99<span class="text-lg font-normal text-mediumtext dark:text-dark-medium-text">/mo</span></p>
+                    <ul class="text-left space-y-3 mb-8 flex-grow"> <li class="flex items-center"><i class="fas fa-check-circle text-primary dark:text-pink-400 mr-3"></i> <span class="dark:text-dark-text-alt">1 Signature Facial OR Massage</span></li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-primary dark:text-pink-400 mr-3"></i> <span class="dark:text-dark-text-alt">10% Off All Products</span></li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-primary dark:text-pink-400 mr-3"></i> <span class="dark:text-dark-text-alt">Priority Booking Window</span></li>
+                    </ul>
+                    <button class="btn-secondary w-full py-3 px-4 rounded-full mt-auto">Choose Plan</button> </div>
+
+                <div class="base-card pricing-card featured p-10 flex flex-col reveal-on-scroll transform md:scale-105 z-10" style="transition-delay: 0.1s;">
+                    <span class="featured-tag">Popular</span>
+                    <h3 class="text-3xl font-serif font-semibold mb-2 dark:text-dark-text-alt">Elegance</h3>
+                    <p class="text-mediumtext dark:text-dark-medium-text mb-6">Complete Beauty Solution</p>
+                    <p class="text-5xl font-bold mb-6 dark:text-dark-text-alt">$199<span class="text-lg font-normal text-mediumtext dark:text-dark-medium-text">/mo</span></p>
+                    <ul class="text-left space-y-3 mb-8 flex-grow">
+                        <li class="flex items-center"><i class="fas fa-check-circle text-primary dark:text-pink-400 mr-3"></i> <span class="dark:text-dark-text-alt">1 Signature Facial</span></li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-primary dark:text-pink-400 mr-3"></i> <span class="dark:text-dark-text-alt">1 Haircut & Style OR Root Touch-up</span></li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-primary dark:text-pink-400 mr-3"></i> <span class="dark:text-dark-text-alt">15% Off All Products</span></li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-primary dark:text-pink-400 mr-3"></i> <span class="dark:text-dark-text-alt">10% Off Additional Services</span></li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-primary dark:text-pink-400 mr-3"></i> <span class="dark:text-dark-text-alt">VIP Priority Booking</span></li>
+                    </ul>
+                    <button class="btn-primary w-full py-3 px-4 rounded-full mt-auto">Choose Plan</button>
+                </div>
+
+                <div class="base-card pricing-card p-8 flex flex-col reveal-on-scroll" style="transition-delay: 0.2s;">
+                    <h3 class="text-2xl font-serif font-semibold mb-2 dark:text-dark-text-alt">Divine</h3>
+                    <p class="text-mediumtext dark:text-dark-medium-text mb-6">Ultimate Indulgence</p>
+                    <p class="text-4xl font-bold mb-6 dark:text-dark-text-alt">$299<span class="text-lg font-normal text-mediumtext dark:text-dark-medium-text">/mo</span></p>
+                    <ul class="text-left space-y-3 mb-8 flex-grow">
+                        <li class="flex items-center"><i class="fas fa-check-circle text-secondary dark:text-purple-400 mr-3"></i> <span class="dark:text-dark-text-alt">2 Premium Services (Any Combo)</span></li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-secondary dark:text-purple-400 mr-3"></i> <span class="dark:text-dark-text-alt">Unlimited Blowouts</span></li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-secondary dark:text-purple-400 mr-3"></i> <span class="dark:text-dark-text-alt">20% Off All Products</span></li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-secondary dark:text-purple-400 mr-3"></i> <span class="dark:text-dark-text-alt">15% Off Additional Services</span></li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-secondary dark:text-purple-400 mr-3"></i> <span class="dark:text-dark-text-alt">Exclusive Event Invites</span></li>
+                    </ul>
+                     <button class="btn-secondary border-secondary text-secondary dark:border-purple-400 dark:text-purple-400 hover:bg-secondary hover:text-white dark:hover:bg-purple-400 dark:hover:text-black w-full py-3 px-4 rounded-full mt-auto">Choose Plan</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+     <section id="blog" class="py-24 md:py-32 bg-gradient-to-br from-pink-50 to-purple-50 dark:from-gray-900 dark:to-black special-section">
+        <div class="container mx-auto px-6 relative z-10">
+            <h2 class="text-4xl md:text-5xl font-serif font-semibold mb-5 text-center reveal-on-scroll dark:text-dark-text-alt">Beauty Insights</h2>
+            <p class="text-lg text-mediumtext dark:text-dark-medium-text mb-16 max-w-2xl mx-auto text-center reveal-on-scroll">Tips, trends, and inspiration from our KDJ experts.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                <div class="base-card group reveal-on-scroll">
+                    <div class="h-52 product-placeholder flex items-center justify-center rounded-t-lg">
+                         <i class="fas fa-feather-alt text-6xl text-gray-400 dark:text-gray-600"></i>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-xs text-primary dark:text-pink-400 font-semibold mb-2 uppercase tracking-wider">Skincare . July 15, 2025</p>
+                        <h3 class="text-xl font-serif font-semibold mb-3 group-hover:text-primary dark:group-hover:text-pink-400 transition duration-300 h-16 dark:text-dark-text-alt">5 Essential Summer Skincare Tips for Glowing Skin</h3>
+                        <p class="text-mediumtext dark:text-dark-medium-text text-sm mb-4 line-clamp-3">Keep your skin radiant and protected during the sunny months with these expert tips from our lead esthetician...</p>
+                        <a href="#" class="font-semibold text-secondary dark:text-purple-400 hover:underline text-sm">Read More <i class="fas fa-arrow-right ml-1 text-xs"></i></a>
+                    </div>
+                </div>
+                <div class="base-card group reveal-on-scroll" style="transition-delay: 0.1s;">
+                     <div class="h-52 product-placeholder flex items-center justify-center rounded-t-lg">
+                          <i class="fas fa-palette text-6xl text-gray-400 dark:text-gray-600"></i>
+                     </div>
+                    <div class="p-6">
+                        <p class="text-xs text-secondary dark:text-purple-400 font-semibold mb-2 uppercase tracking-wider">Hair Trends . July 10, 2025</p>
+                        <h3 class="text-xl font-serif font-semibold mb-3 group-hover:text-secondary dark:group-hover:text-purple-400 transition duration-300 h-16 dark:text-dark-text-alt">Balayage vs. Ombré: Choosing Your Perfect Blend</h3>
+                        <p class="text-mediumtext dark:text-dark-medium-text text-sm mb-4 line-clamp-3">Confused about popular coloring techniques? We break down the key differences to help you decide...</p>
+                         <a href="#" class="font-semibold text-primary dark:text-pink-400 hover:underline text-sm">Read More <i class="fas fa-arrow-right ml-1 text-xs"></i></a>
+                    </div>
+                </div>
+                 <div class="base-card group reveal-on-scroll" style="transition-delay: 0.2s;">
+                     <div class="h-52 product-placeholder flex items-center justify-center rounded-t-lg">
+                          <i class="fas fa-heartbeat text-6xl text-gray-400 dark:text-gray-600"></i>
+                     </div>
+                    <div class="p-6">
+                        <p class="text-xs text-accent dark:text-yellow-400 font-semibold mb-2 uppercase tracking-wider">Wellness . July 5, 2025</p>
+                        <h3 class="text-xl font-serif font-semibold mb-3 group-hover:text-accent dark:group-hover:text-yellow-400 transition duration-300 h-16 dark:text-dark-text-alt">Unlock Relaxation: The Benefits of Regular Massage</h3>
+                        <p class="text-mediumtext dark:text-dark-medium-text text-sm mb-4 line-clamp-3">Discover how incorporating massage therapy into your routine can significantly improve both physical and mental well-being...</p>
+                         <a href="#" class="font-semibold text-secondary dark:text-purple-400 hover:underline text-sm">Read More <i class="fas fa-arrow-right ml-1 text-xs"></i></a>
+                    </div>
+                </div>
+            </div>
+             <div class="text-center mt-16 reveal-on-scroll">
+                 <a href="#" class="btn-primary px-8 py-3 rounded-full text-lg font-semibold hover:shadow-xl transition duration-300">Explore All Insights</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="booking" class="py-24 md:py-32 bg-lightbg dark:bg-dark-bg relative overflow-hidden">
+         <div class="absolute top-0 left-0 -translate-x-1/4 -translate-y-1/4 w-96 h-96 bg-gradient-to-br from-pink-100 to-transparent rounded-full opacity-30 dark:opacity-10 z-0 floating-animation"></div>
+          <div class="absolute bottom-0 right-0 translate-x-1/4 translate-y-1/4 w-80 h-80 bg-gradient-to-tl from-purple-100 to-transparent rounded-full opacity-30 dark:opacity-10 z-0 floating-animation" style="animation-delay: -4s;"></div>
+
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="max-w-3xl mx-auto text-center">
+                 <h2 class="text-4xl md:text-5xl font-serif font-semibold mb-5 reveal-on-scroll dark:text-dark-text-alt">Book Your Appointment</h2>
+                <p class="text-lg text-mediumtext dark:text-dark-medium-text mb-12 reveal-on-scroll">Select your service, preferred artist, date, and time with ease.</p>
+            </div>
+
+            <div class="max-w-4xl mx-auto bg-white dark:bg-dark-card p-8 md:p-12 rounded-xl shadow-2xl reveal-on-scroll">
+                 <form class="space-y-6">
+                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                         <div>
+                             <label for="service" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Select Service *</label>
+                             <select id="service" name="service" required class="form-select">
+                                 <option value="">-- Choose Service --</option>
+                                 <option>Precision Haircut</option>
+                                 <option>Creative Coloring</option>
+                                 <option>Revitalizing Facial</option>
+                                 <option>Luxury Manicure</option>
+                                 <option>Event Styling</option>
+                                 <option>Wellness Massage</option>
+                                  </select>
+                         </div>
+                         <div>
+                             <label for="artist" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Preferred Artist</label>
+                             <select id="artist" name="artist" class="form-select">
+                                 <option value="any">Any Available</option>
+                                 <option value="alex">Alex Jordan (Stylist)</option>
+                                 <option value="jamie">Jamie Lee (Skincare)</option>
+                                 <option value="casey">Casey Morgan (Nails)</option>
+                                 <option value="sam">Sam Taylor (Massage)</option>
+                                  </select>
+                         </div>
+                     </div>
+
+                      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                         <div>
+                             <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Select Date *</label>
+                              <div id="calendar-placeholder" class="bg-gray-100 dark:bg-gray-700 p-6 rounded-lg text-center text-gray-500 dark:text-gray-400">
+                                  <p><i class="far fa-calendar-alt mr-2"></i> Calendar Placeholder</p>
+                                  <p class="text-xs mt-1">(Interactive Date Selection)</p>
+                                   <input type="date" id="selected-date" name="selected-date" class="opacity-0 absolute pointer-events-none"> </div>
+                         </div>
+                         <div>
+                             <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Select Time *</label>
+                              <div id="time-slots-placeholder" class="bg-gray-100 dark:bg-gray-700 p-6 rounded-lg text-center text-gray-500 dark:text-gray-400">
+                                  <p><i class="far fa-clock mr-2"></i> Time Slot Placeholder</p>
+                                  <p class="text-xs mt-1">(Available times for selected date)</p>
+                                   <input type="hidden" id="selected-time" name="selected-time"> </div>
+                         </div>
+                     </div>
+
+
+                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                          <div>
+                              <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Full Name *</label>
+                              <input type="text" id="name" name="name" required class="form-input" autocomplete="name">
+                          </div>
+                          <div>
+                              <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Email Address *</label>
+                              <input type="email" id="email" name="email" required class="form-input" autocomplete="email">
+                          </div>
+                          <div>
+                              <label for="phone" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Phone Number *</label>
+                              <input type="tel" id="phone" name="phone" required class="form-input" autocomplete="tel">
+                          </div>
+                           <div>
+                              <label for="notes" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Notes (Optional)</label>
+                              <textarea id="notes" name="notes" rows="1" class="form-textarea" placeholder="Any specific requests?"></textarea>
+                          </div>
+                     </div>
+
+                     <div class="pt-4 text-center">
+                          <button type="submit" class="btn-primary px-10 py-3 rounded-full text-lg font-semibold hover:shadow-xl transition duration-300">Request Appointment</button>
+                          <p class="text-xs text-gray-500 dark:text-gray-400 mt-4">We will contact you to confirm your appointment details.</p>
+                     </div>
+                 </form>
+            </div>
+        </div>
+    </section>
+
+    <section id="faq" class="py-24 md:py-32 bg-white dark:bg-dark-card">
+        <div class="container mx-auto px-6">
+             <div class="max-w-3xl mx-auto text-center mb-16">
+                 <h2 class="text-4xl md:text-5xl font-serif font-semibold mb-5 reveal-on-scroll dark:text-dark-text-alt">Frequently Asked Questions</h2>
+                <p class="text-lg text-mediumtext dark:text-dark-medium-text reveal-on-scroll">Find quick answers to common questions about our services and policies.</p>
+            </div>
+             <div class="max-w-3xl mx-auto reveal-on-scroll">
+                 <div class="faq-item">
+                     <div class="faq-question flex justify-between items-center">
+                         <h3 class="text-lg font-semibold dark:text-dark-text-alt">What is your cancellation policy?</h3>
+                         <span class="faq-icon text-xl"><i class="fas fa-plus"></i></span>
+                     </div>
+                     <div class="faq-answer pb-6">
+                         <p>We kindly request at least 24 hours notice for any cancellations or rescheduling. Cancellations made within 24 hours of the appointment time may be subject to a fee. Please call us directly for any changes.</p>
+                     </div>
+                 </div>
+                 <div class="faq-item">
+                      <div class="faq-question flex justify-between items-center">
+                         <h3 class="text-lg font-semibold dark:text-dark-text-alt">Do you offer consultations?</h3>
+                         <span class="faq-icon text-xl"><i class="fas fa-plus"></i></span>
+                     </div>
+                     <div class="faq-answer pb-6">
+                         <p>Yes! We highly recommend complimentary consultations, especially for significant changes like new hair color or major style transformations. This allows us to discuss your goals, assess suitability, and provide an accurate quote. You can book a consultation online or call us.</p>
+                     </div>
+                 </div>
+                  <div class="faq-item">
+                      <div class="faq-question flex justify-between items-center">
+                         <h3 class="text-lg font-semibold dark:text-dark-text-alt">What product lines do you use and sell?</h3>
+                         <span class="faq-icon text-xl"><i class="fas fa-plus"></i></span>
+                     </div>
+                     <div class="faq-answer pb-6">
+                         <p>We partner with several premium professional brands known for their quality and performance, including [Brand Name 1], [Brand Name 2], and [Brand Name 3 - Add specific brands]. These are also available for purchase in our salon boutique and online store to help you maintain your results at home.</p>
+                     </div>
+                 </div>
+                  <div class="faq-item">
+                      <div class="faq-question flex justify-between items-center">
+                         <h3 class="text-lg font-semibold dark:text-dark-text-alt">Is parking available?</h3>
+                         <span class="faq-icon text-xl"><i class="fas fa-plus"></i></span>
+                     </div>
+                     <div class="faq-answer pb-6">
+                         <p>Yes, we offer complimentary client parking [Describe parking situation - e.g., in the lot behind our building, street parking is usually available on X street]. Please arrive a few minutes early to find a spot comfortably.</p>
+                     </div>
+                 </div>
+                 </div>
+        </div>
+    </section>
+
+    <section id="contact" class="py-24 md:py-32 bg-gradient-to-br from-purple-50 to-pink-50 dark:from-gray-900 dark:to-black special-section">
+        <div class="container mx-auto px-6 relative z-10">
+             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+                 <div class="reveal-on-scroll">
+                     <h2 class="text-4xl md:text-5xl font-serif font-semibold mb-5 dark:text-dark-text-alt">Get In Touch</h2>
+                    <p class="text-lg text-mediumtext dark:text-dark-medium-text mb-10">Have questions or ready to visit? We'd love to hear from you. Reach out via phone, email, or the contact form.</p>
+
+                     <div class="space-y-6">
+                         <div class="flex items-start space-x-4">
+                            <div class="text-primary dark:text-pink-400 text-2xl mt-1 w-6 text-center"><i class="fas fa-map-marker-alt"></i></div>
+                            <div>
+                                <h4 class="font-semibold dark:text-dark-text-alt">Visit Us</h4>
+                                <p class="text-mediumtext dark:text-dark-medium-text">123 Beauty Avenue, Glamour City, GC 10100, Sri Lanka</p>
+                                 <div class="mt-4 w-full h-48 bg-gray-300 dark:bg-gray-700 rounded-lg flex items-center justify-center text-gray-500 dark:text-gray-400 text-sm">
+                                     Abstract Map Placeholder (Generative Art?)
+                                 </div>
+                            </div>
+                         </div>
+                         <div class="flex items-start space-x-4">
+                            <div class="text-primary dark:text-pink-400 text-2xl mt-1 w-6 text-center"><i class="fas fa-phone-alt"></i></div>
+                            <div>
+                                <h4 class="font-semibold dark:text-dark-text-alt">Call Us</h4>
+                                <a href="tel:+94112345678" class="text-mediumtext dark:text-dark-medium-text hover:text-primary dark:hover:text-pink-400 transition duration-300">+94 11 234 5678</a>
+                            </div>
+                         </div>
+                         <div class="flex items-start space-x-4">
+                             <div class="text-primary dark:text-pink-400 text-2xl mt-1 w-6 text-center"><i class="fas fa-envelope"></i></div>
+                            <div>
+                                <h4 class="font-semibold dark:text-dark-text-alt">Email Us</h4>
+                                <a href="mailto:hello@kdjsalon.com" class="text-mediumtext dark:text-dark-medium-text hover:text-primary dark:hover:text-pink-400 transition duration-300">hello@kdjsalon.com</a>
+                            </div>
+                         </div>
+                         <div class="flex items-start space-x-4">
+                            <div class="text-primary dark:text-pink-400 text-2xl mt-1 w-6 text-center"><i class="fas fa-clock"></i></div>
+                            <div>
+                                <h4 class="font-semibold dark:text-dark-text-alt">Opening Hours</h4>
+                                <p class="text-mediumtext dark:text-dark-medium-text">Tue - Sat: 9:00 AM - 7:00 PM</p>
+                                <p class="text-mediumtext dark:text-dark-medium-text">Sun & Mon: Closed</p>
+                            </div>
+                         </div>
+                     </div>
+                 </div>
+
+                 <div class="bg-white dark:bg-dark-card p-8 md:p-10 rounded-xl shadow-2xl reveal-on-scroll" style="transition-delay: 0.1s;">
+                     <h3 class="text-2xl font-serif font-semibold mb-6 dark:text-dark-text-alt">Send Us a Message</h3>
+                     <form action="#" method="POST" class="space-y-5">
+                        <div>
+                             <label for="contact-name" class="sr-only">Name</label>
+                             <input type="text" name="contact-name" id="contact-name" required placeholder="Your Name *" class="form-input" autocomplete="name">
+                         </div>
+                         <div>
+                             <label for="contact-email" class="sr-only">Email</label>
+                             <input type="email" name="contact-email" id="contact-email" required placeholder="Your Email *" class="form-input" autocomplete="email">
+                         </div>
+                          <div>
+                             <label for="contact-subject" class="sr-only">Subject</label>
+                             <input type="text" name="contact-subject" id="contact-subject" placeholder="Subject" class="form-input">
+                         </div>
+                         <div>
+                             <label for="contact-message" class="sr-only">Message</label>
+                             <textarea name="contact-message" id="contact-message" rows="5" required placeholder="Your Message *" class="form-textarea"></textarea>
+                         </div>
+                         <div class="text-right">
+                             <button type="submit" class="btn-primary px-8 py-3 rounded-full font-semibold hover:shadow-lg transition duration-300">Send Message</button>
+                         </div>
+                     </form>
+                 </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-darktext text-lighttext py-16 dark:bg-black"> <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
+                <div>
+                    <h4 class="text-xl font-serif font-semibold mb-4 gradient-text">KDJ Salon</h4>
+                    <p class="text-gray-400 dark:text-gray-500 text-sm leading-relaxed">Your sanctuary for modern beauty and holistic wellness in Glamour City. Experience artistry and innovation.</p>
+                     <div class="mt-6 space-x-4">
+                         <a href="#" aria-label="Facebook" class="text-gray-400 hover:text-primary dark:hover:text-pink-400 transition duration-300 text-xl"><i class="fab fa-facebook-f"></i></a>
+                         <a href="#" aria-label="Instagram" class="text-gray-400 hover:text-primary dark:hover:text-pink-400 transition duration-300 text-xl"><i class="fab fa-instagram"></i></a>
+                         <a href="#" aria-label="Twitter" class="text-gray-400 hover:text-primary dark:hover:text-pink-400 transition duration-300 text-xl"><i class="fab fa-twitter"></i></a>
+                         <a href="#" aria-label="Pinterest" class="text-gray-400 hover:text-primary dark:hover:text-pink-400 transition duration-300 text-xl"><i class="fab fa-pinterest-p"></i></a>
+                     </div>
+                </div>
+                <div>
+                     <h4 class="text-lg font-semibold mb-4 text-gray-200 dark:text-gray-300">Quick Links</h4>
+                     <ul class="space-y-2">
+                         <li><a href="#services" class="text-gray-400 dark:text-gray-500 hover:text-primary dark:hover:text-pink-400 transition duration-300 text-sm">Services</a></li>
+                         <li><a href="#gallery" class="text-gray-400 dark:text-gray-500 hover:text-primary dark:hover:text-pink-400 transition duration-300 text-sm">Gallery</a></li>
+                         <li><a href="#team" class="text-gray-400 dark:text-gray-500 hover:text-primary dark:hover:text-pink-400 transition duration-300 text-sm">Our Team</a></li>
+                         <li><a href="#store" class="text-gray-400 dark:text-gray-500 hover:text-primary dark:hover:text-pink-400 transition duration-300 text-sm">Shop Products</a></li>
+                         <li><a href="#blog" class="text-gray-400 dark:text-gray-500 hover:text-primary dark:hover:text-pink-400 transition duration-300 text-sm">Blog</a></li>
+                     </ul>
+                </div>
+                 <div>
+                     <h4 class="text-lg font-semibold mb-4 text-gray-200 dark:text-gray-300">Support</h4>
+                     <ul class="space-y-2">
+                         <li><a href="#contact" class="text-gray-400 dark:text-gray-500 hover:text-primary dark:hover:text-pink-400 transition duration-300 text-sm">Contact Us</a></li>
+                         <li><a href="#booking" class="text-gray-400 dark:text-gray-500 hover:text-primary dark:hover:text-pink-400 transition duration-300 text-sm">Book Online</a></li>
+                         <li><a href="#memberships" class="text-gray-400 dark:text-gray-500 hover:text-primary dark:hover:text-pink-400 transition duration-300 text-sm">Memberships</a></li>
+                         <li><a href="#faq" class="text-gray-400 dark:text-gray-500 hover:text-primary dark:hover:text-pink-400 transition duration-300 text-sm">FAQs</a></li>
+                         <li><a href="#" class="text-gray-400 dark:text-gray-500 hover:text-primary dark:hover:text-pink-400 transition duration-300 text-sm">Privacy Policy</a></li>
+                     </ul>
+                 </div>
+                 <div>
+                     <h4 class="text-lg font-semibold mb-4 text-gray-200 dark:text-gray-300">Stay Updated</h4>
+                     <p class="text-gray-400 dark:text-gray-500 text-sm mb-4">Subscribe for exclusive offers, tips, and salon news directly to your inbox.</p>
+                     <form action="#" method="POST">
+                         <label for="footer-email" class="sr-only">Email for Newsletter</label>
+                         <div class="flex">
+                             <input type="email" id="footer-email" placeholder="Your Email" class="w-full px-3 py-2 rounded-l-lg bg-gray-700 border border-gray-600 focus:outline-none focus:border-primary text-sm text-white" required autocomplete="email">
+                             <button type="submit" class="gradient-bg text-white px-4 py-2 rounded-r-lg text-sm font-semibold hover:shadow-lg transition duration-300">Go</button>
+                         </div>
+                     </form>
+                 </div>
+            </div>
+            <div class="border-t border-gray-700 dark:border-gray-800 pt-8 text-center text-gray-500 text-sm">
+                &copy; <span id="current-year"></span> KDJ Salon. All Rights Reserved. Designed with <i class="fas fa-heart text-primary dark:text-pink-500"></i> in Sri Lanka.
+            </div>
+        </div>
+    </footer>
+
+    <button id="scroll-to-top" aria-label="Scroll to top" class="fixed-fab scroll-indicator opacity-0 invisible">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+     <button id="theme-toggle" aria-label="Toggle dark mode" class="fixed-fab theme-switch">
+         <i class="fas fa-moon"></i> <i class="fas fa-sun hidden"></i> </button>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.7.14/lottie.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.0.7/dist/js/splide.min.js"></script>
+    <script>
+        // Main JavaScript Logic
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // --- Theme Toggle ---
+            const themeToggleButton = document.getElementById('theme-toggle');
+            const themeToggleButtonMobile = document.getElementById('theme-toggle-mobile');
+            const sunIcon = themeToggleButton.querySelector('.fa-sun');
+            const moonIcon = themeToggleButton.querySelector('.fa-moon');
+            const mobileIcon = themeToggleButtonMobile.querySelector('i'); // Mobile has one icon to toggle
+
+            // Function to apply theme
+            const applyTheme = (theme) => {
+                if (theme === 'dark') {
+                    document.documentElement.classList.add('dark');
+                    document.documentElement.classList.remove('light');
+                    sunIcon?.classList.remove('hidden'); // Show sun
+                    moonIcon?.classList.add('hidden');   // Hide moon
+                    mobileIcon?.classList.remove('fa-moon'); // Change mobile icon
+                    mobileIcon?.classList.add('fa-sun');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                    document.documentElement.classList.add('light');
+                    sunIcon?.classList.add('hidden');    // Hide sun
+                    moonIcon?.classList.remove('hidden');  // Show moon
+                    mobileIcon?.classList.remove('fa-sun');  // Change mobile icon
+                    mobileIcon?.classList.add('fa-moon');
+                }
+            };
+
+            // Check for saved theme preference or use system preference
+            const savedTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+            applyTheme(savedTheme);
+
+            // Event listener for toggle button
+            const toggleAction = () => {
+                const currentTheme = document.documentElement.classList.contains('dark') ? 'light' : 'dark';
+                applyTheme(currentTheme);
+                localStorage.setItem('theme', currentTheme);
+            };
+            themeToggleButton.addEventListener('click', toggleAction);
+            themeToggleButtonMobile.addEventListener('click', toggleAction);
+
+
+            // --- Loader ---
+             const loader = document.getElementById('loader');
+             window.addEventListener('load', () => {
+                 // Ensure loader stays for a minimum time (e.g., 500ms) for smoother transition
+                 setTimeout(() => {
+                      loader.classList.add('hidden');
+                 }, 300); // Adjust time as needed
+             });
+
+
+            // --- Navbar Scroll Effect ---
+            const navbar = document.getElementById('navbar');
+            const navHeight = navbar.offsetHeight; // Get initial height for offset calculations
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('nav-scrolled', 'py-2'); // Use custom class
+                    navbar.classList.remove('py-4');
+                } else {
+                    navbar.classList.remove('nav-scrolled', 'py-2');
+                    navbar.classList.add('py-4');
+                }
+            });
+
+            // --- Mobile Menu ---
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileMenuClose = document.getElementById('mobile-menu-close');
+            const menuOverlay = document.getElementById('menu-overlay');
+            const hamburger = mobileMenuButton.querySelector('.hamburger');
+
+            const openMenu = () => {
+                mobileMenu.classList.add('active');
+                menuOverlay.classList.add('active');
+                hamburger.classList.add('open');
+                 document.body.style.overflow = 'hidden'; // Prevent background scroll
+            };
+            const closeMenu = () => {
+                mobileMenu.classList.remove('active');
+                menuOverlay.classList.remove('active');
+                hamburger.classList.remove('open');
+                 document.body.style.overflow = ''; // Restore scroll
+            };
+
+            mobileMenuButton.addEventListener('click', openMenu);
+            mobileMenuClose.addEventListener('click', closeMenu);
+            menuOverlay.addEventListener('click', closeMenu);
+
+             // Close mobile menu when a link is clicked
+             mobileMenu.querySelectorAll('a').forEach(link => {
+                 link.addEventListener('click', closeMenu);
+             });
+
+             // --- Scroll to Top Button ---
+             const scrollToTopButton = document.getElementById('scroll-to-top');
+             window.addEventListener('scroll', () => {
+                 if (window.scrollY > 300) {
+                     scrollToTopButton.classList.remove('opacity-0', 'invisible');
+                     scrollToTopButton.classList.add('opacity-100', 'visible');
+                 } else {
+                     scrollToTopButton.classList.remove('opacity-100', 'visible');
+                     scrollToTopButton.classList.add('opacity-0', 'invisible');
+                 }
+             });
+             scrollToTopButton.addEventListener('click', () => {
+                 window.scrollTo({ top: 0, behavior: 'smooth' });
+             });
+
+             // --- Simple Reveal on Scroll (Intersection Observer) ---
+             const revealElements = document.querySelectorAll('.reveal-on-scroll');
+             const observer = new IntersectionObserver((entries) => {
+                 entries.forEach(entry => {
+                     if (entry.isIntersecting) {
+                         entry.target.classList.add('is-visible');
+                         observer.unobserve(entry.target); // Unobserve after revealing
+                     }
+                 });
+             }, { threshold: 0.1 }); // Trigger when 10% visible
+
+             revealElements.forEach(el => observer.observe(el));
+
+              // --- Progress Bar ---
+              const progressBar = document.querySelector('.progress-bar');
+              window.addEventListener('scroll', () => {
+                  const scrollTotal = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                  const scrolled = window.scrollY;
+                  const progress = (scrolled / scrollTotal) * 100;
+                  progressBar.style.width = `${progress}%`;
+              });
+
+             // --- GSAP Animations (If GSAP is loaded) ---
+             if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+                 gsap.registerPlugin(ScrollTrigger);
+
+                 // Hero Entrance Animation
+                 gsap.timeline({ delay: 0.5 }) // Delay after potential loader fade
+                    .from("#hero h1", { duration: 1, y: 50, opacity: 0, ease: "power3.out" })
+                    .from("#hero p", { duration: 1, y: 30, opacity: 0, ease: "power3.out" }, "-=0.7") // Overlap slightly
+                    .from("#hero .btn-primary", { duration: 1, y: 20, opacity: 0, ease: "power3.out" }, "-=0.7");
+
+                 // Stagger Animation for Service Cards
+                 gsap.from(".service-card", {
+                    scrollTrigger: {
+                        trigger: "#services",
+                        start: "top 80%",
+                        toggleActions: "play none none none",
+                    },
+                    duration: 0.7,
+                    y: 40,
+                    opacity: 0,
+                    stagger: 0.15, // Adjust stagger amount
+                    ease: "power2.out"
+                });
+
+                 // Add more sophisticated GSAP animations for other sections if needed
+                 // Example: Parallax for background elements, complex text reveals, etc.
+
+             } else {
+                 console.warn("GSAP or ScrollTrigger not loaded. Animations skipped.");
+             }
+
+            // --- Splide Testimonial Slider ---
+             const splideElement = document.getElementById('testimonial-slider');
+             if (splideElement && typeof Splide !== 'undefined') {
+                 new Splide(splideElement, {
+                     type       : 'loop', // Loop behavior
+                     perPage    : 3,    // Default items per page
+                     perMove    : 1,
+                     gap        : '2rem', // Space between slides
+                     pagination : true,  // Show dots
+                     arrows     : false, // Hide default arrows (optional)
+                      autoplay   : true,   // Enable autoplay
+                      interval   : 5000,  // Autoplay interval in ms
+                      pauseOnHover: true,
+                      pauseOnFocus: true,
+                     breakpoints: {
+                         1024: { // Large screens
+                             perPage: 2,
+                         },
+                         768: { // Medium screens (tablets)
+                             perPage: 1,
+                             gap: '1rem',
+                         },
+                     }
+                 }).mount();
+             } else {
+                 console.warn("Splide element or library not found. Testimonial slider not initialized.");
+             }
+
+            // --- FAQ Accordion ---
+             const faqQuestions = document.querySelectorAll('.faq-question');
+             faqQuestions.forEach(question => {
+                 question.addEventListener('click', () => {
+                     const answer = question.nextElementSibling;
+                     const wasActive = question.classList.contains('active');
+
+                      // Optional: Close other open questions
+                      // faqQuestions.forEach(q => {
+                      //    if (q !== question) {
+                      //        q.classList.remove('active');
+                      //        q.nextElementSibling.style.maxHeight = null;
+                      //        q.nextElementSibling.style.paddingBottom = '0px';
+                      //    }
+                      // });
+
+                     question.classList.toggle('active');
+
+                     if (question.classList.contains('active')) {
+                         // Temporarily set height to auto to get full height, then set max-height
+                         answer.style.maxHeight = answer.scrollHeight + "px";
+                         // Use setTimeout to apply padding after height transition starts
+                         setTimeout(() => {
+                             if (question.classList.contains('active')) { // Double check if still active
+                                 answer.style.paddingBottom = '1.5rem'; // Match CSS
+                             }
+                         }, 50); // Small delay
+                     } else {
+                         answer.style.paddingBottom = '0px';
+                         answer.style.maxHeight = null; // Collapse
+                     }
+                 });
+             });
+
+
+            // --- Three.js / p5.js Placeholder Logic ---
+            const heroCanvas = document.getElementById('hero-canvas');
+            if (heroCanvas && typeof THREE !== 'undefined') {
+                 console.log("Placeholder: Initialize Three.js scene in #hero-canvas");
+                 // Example: Simple particle system or gradient shader
+             } else if (heroCanvas && typeof p5 !== 'undefined') {
+                 console.log("Placeholder: Initialize p5.js sketch in #hero-canvas");
+                 // Example: Flow field or generative pattern
+            }
+
+            // --- Lottie Animation Placeholder ---
+            // Add Lottie initialization if needed
+
+            // --- Update Footer Year ---
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+
+            // --- Add more JS here: ---
+            // - Booking Form: Calendar implementation, time slot fetching/selection, validation
+            // - Contact Form: Validation, AJAX submission
+            // - Gallery Lightbox
+            // - Store "Add to Cart" interaction (e.g., showing confirmation)
+
+        }); // End DOMContentLoaded
+    </script>
+
+</body>
+</html>
